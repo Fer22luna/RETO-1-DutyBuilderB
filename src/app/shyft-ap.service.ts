@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, of } from 'rxjs';
-import { config } from './config';
+import { config } from './config'; // aca tengo un config en el gitignore
 
 @Injectable({ providedIn: 'root'})
 export class ShyftApiService {
@@ -27,5 +27,9 @@ export class ShyftApiService {
     }>(url.toString(), {headers : this._header})
     .pipe( map((response) => response.result));
     }
+
+
+
+
 
 }
