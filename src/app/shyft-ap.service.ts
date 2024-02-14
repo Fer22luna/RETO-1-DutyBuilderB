@@ -1,22 +1,22 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { map, of } from 'rxjs';
+import { config } from './config';
 
 @Injectable({ providedIn: 'root'})
 export class ShyftApiService {
 
     private readonly _httpClient = inject(HttpClient);
-    private readonly _header = {'sdsd' : 'assa'};
-    private readonly _mint = '';
-
-
+    private readonly _header  = {'x-api-key': config.shyftApiKey}; 
+    private readonly _mint = config.mint; 
+    
     getAccount(publicKey: string | undefined | null){
 
         if(!publicKey){
             return of(null);
         }
 
-        const url = new URL('HTTP API SHIFT TOKEN');
+        const url = new URL('https://api.shyft.to/sol/v1/wallet/token_balance');
 
         url.searchParams.set('network', 'mainnet-beta');
         url.searchParams.set('wallet', publicKey);
