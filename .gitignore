@@ -43,4 +43,4 @@ Thumbs.db
 
 
 # config 
-app/config.ts
+src/app/config.ts
