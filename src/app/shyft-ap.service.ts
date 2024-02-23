@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map, of,tap } from 'rxjs';
+import { map, of} from 'rxjs';
+
 import { config } from './config'; // aca tengo un config en el gitignore
 
 @Injectable({ providedIn: 'root'})
@@ -35,9 +36,8 @@ export class ShyftApiService {
             result: {balance: number; info : { image: string} };
     }>(url.toString(), {headers : this._header})
     .pipe( 
-       tap(a => console.log(a)),
+    //    tap(a => console.log(a)),
         map((response) => response.result)); 
-    
     }
 
     getBalance(publicKey: string | undefined | null){
@@ -55,7 +55,7 @@ export class ShyftApiService {
             result: {balance: number};
     }>(url.toString(), {headers : this._header})
     .pipe( 
-       tap(a => console.log(a)),
+    //    tap(a => console.log(a)),
         map((response) => response.result)); 
     }
 
@@ -75,7 +75,7 @@ export class ShyftApiService {
             result: { status: string; type : string ; timestamp : string } []
     }>(url.toString(), {headers : this._header})
     .pipe( 
-       tap(a => console.log(a)),
+    //    tap(a => console.log(a)),
         map((response) => response.result)); 
     
     
