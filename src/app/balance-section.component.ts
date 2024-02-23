@@ -7,6 +7,7 @@ import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { MatDialog } from '@angular/material/dialog';
 import { TransferModalComponent } from './transfer-modal.component';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
     selector: 'duty-work-space-balance-section',
@@ -22,17 +23,19 @@ import { TransferModalComponent } from './transfer-modal.component';
           <img [src]="account()?.info?.image" class="w-16 h-16" />
           <p class="text-5xl font-bold">{{ account()?.balance }}</p>
         </div>
-      }
 
-      <footer class="flex justify-center items-center gap-2 mb-4">
+        <footer class="flex justify-center items-center gap-2 mb-4 mt-8">
         <button mat-raised-button color="primary" (click)="onTransfer()">
           Transferir
         </button>
       </footer>
+      }
+
+      
     </mat-card>
   `
     ,
-    imports:[MatCardModule, MatIconModule],
+    imports:[MatCardModule, MatIconModule, MatButtonModule],
 })
 
 export class BalanceSectionComponent{
