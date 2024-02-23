@@ -6,11 +6,11 @@ export const appRoutes: Route[] = [
     //     loadComponent:() => 
     //        import('./home-section.component').then((m) => m.HomePageComponent),     
     // },
-    {
-        path : 'settings',
-        loadComponent:() => 
-           import('./setting-section.component').then((m) => m.SettingsPageComponent),     
-    },
+    // {
+    //     path : 'settings',
+    //     loadComponent:() => 
+    //        import('./setting-section.component').then((m) => m.SettingsPageComponent),     
+    // },
     {
         path:'**',
         redirectTo:''

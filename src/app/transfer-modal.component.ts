@@ -25,7 +25,7 @@ export class TransferModalComponent  {
 
 
     onTransfer(payload : TransferFormPayload){
-        console.log("hola desde el transfer modal",payload)
+        // console.log("hola desde el transfer modal",payload)
         
 
     this._transactionSender.send(({publicKey}) => createTransferInstructions({
@@ -35,14 +35,11 @@ export class TransferModalComponent  {
         senderAddress: publicKey.toBase58(),
         fundReceiver: true, // para crearte el associated token account por si no lo tiene el que recibe la transferencia 
         memo: payload.memo
-    }))
-
-
-        .subscribe({
+    }),
+    ).subscribe({
             next:(signature) => console.log(`Firma : ${signature}`),  // esta es la firma que representa a esta transaccion en la blockchain
             error: error =>console.error(error),
             complete: () => console.log('transaccion lista')
         });
-    }
-   
+    }  
 }
