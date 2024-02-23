@@ -5,6 +5,8 @@ import { ShyftApiService } from './shyft-ap.service';
 import { computedAsync } from 'ngxtension/computed-async';
 import { WalletStore } from '@heavy-duty/wallet-adapter';
 import { toSignal } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { TransferModalComponent } from './transfer-modal.component';
 
 @Component({
     selector: 'duty-work-space-balance-section',
@@ -21,6 +23,12 @@ import { toSignal } from '@angular/core/rxjs-interop';
           <p class="text-5xl font-bold">{{ account()?.balance }}</p>
         </div>
       }
+
+      <footer class="flex justify-center items-center gap-2 mb-4">
+        <button mat-raised-button color="primary" (click)="onTransfer()">
+          Transferir
+        </button>
+      </footer>
     </mat-card>
   `
     ,
@@ -33,6 +41,7 @@ export class BalanceSectionComponent{
     // private readonly _publicKey = injectPublicKey();
     private readonly _walletStore = inject(WalletStore);
     private readonly _publicKey = toSignal(this._walletStore.publicKey$);
+    private readonly _matDialog = inject(MatDialog);
   
     readonly account = computedAsync(() =>
       this._shyftApiService.getAccount(this._publicKey()?.toBase58()),
@@ -40,5 +49,9 @@ export class BalanceSectionComponent{
     );
   
 
+    onTransfer(){
+      console.log("hola mundo!")
+      this._matDialog.open(TransferModalComponent);
+    }
 
 }

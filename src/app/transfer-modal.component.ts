@@ -1,5 +1,8 @@
 import { Component} from '@angular/core';
 import { TransferFormComponent, TransferFormPayload } from './transfer-form.component';
+import { injectTransactionSender } from '@heavy-duty/wallet-adapter';
+import { createTransferInstructions } from "@heavy-duty/spl-utils"
+import { config } from './config';
 
 @Component({
     selector: 'duty-work-space-traansfer-modal',
@@ -18,11 +21,28 @@ import { TransferFormComponent, TransferFormPayload } from './transfer-form.comp
 
 export class TransferModalComponent  {
 
+    private readonly _transactionSender = injectTransactionSender();
+
+
     onTransfer(payload : TransferFormPayload){
         console.log("hola desde el transfer modal",payload)
+        
+
+    this._transactionSender.send(({publicKey}) => createTransferInstructions({
+        amount:payload.amount,
+        mintAddress: config.mint,
+        receiverAddress: payload.receiverAddress,
+        senderAddress: publicKey.toBase58(),
+        fundReceiver: true, // para crearte el associated token account por si no lo tiene el que recibe la transferencia 
+        memo: payload.memo
+    }))
 
 
-
+        .subscribe({
+            next:(signature) => console.log(`Firma : ${signature}`),  // esta es la firma que representa a esta transaccion en la blockchain
+            error: error =>console.error(error),
+            complete: () => console.log('transaccion lista')
+        });
     }
    
 }

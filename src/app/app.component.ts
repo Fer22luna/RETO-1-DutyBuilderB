@@ -1,15 +1,15 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component,  OnInit,  inject } from '@angular/core';
 import { RouterLink, RouterModule } from '@angular/router';
 import { HdWalletMultiButtonComponent } from '@heavy-duty/wallet-adapter-material';
 import { ShyftApiService } from './shyft-ap.service';
-import { WalletStore } from '@heavy-duty/wallet-adapter';
+import { WalletStore , ConnectionStore} from '@heavy-duty/wallet-adapter';
 import { toSignal} from '@angular/core/rxjs-interop'
 import { computedAsync } from 'ngxtension/computed-async';
 import {  CommonModule, DecimalPipe} from '@angular/common';
 import { MatAnchor } from '@angular/material/button'
 import { TransactionsSectionComponent } from './transactions-section.component';
-import { MatDialog } from '@angular/material/dialog';
-import { TransferModalComponent } from './transfer-modal.component';
+import { BalancePageComponent } from './balance-page.component';
+
 
 @Component({
   standalone: true,
@@ -18,9 +18,10 @@ import { TransferModalComponent } from './transfer-modal.component';
     HdWalletMultiButtonComponent,
     DecimalPipe,
     MatAnchor,
-    RouterLink, 
+    // RouterLink, 
     CommonModule,
-    TransactionsSectionComponent,
+    // TransactionsSectionComponent,
+    BalancePageComponent
     ],
   selector: 'duty-work-space-root',
   template:`
@@ -50,8 +51,8 @@ import { TransferModalComponent } from './transfer-modal.component';
     </div>
   } 
   
-
-  <nav>
+<duty-work-space-balance-page></duty-work-space-balance-page>
+  <!-- <nav>
     <ul class="flex justify-center gap-4 py-16">
       <li>
         <a [routerLink]="['']" mat-raised-button>Home</a>
@@ -60,29 +61,27 @@ import { TransferModalComponent } from './transfer-modal.component';
         <a [routerLink]="['settings']" mat-raised-button>Settings</a>
       </li>
     </ul>
-  </nav>
+  </nav> -->
 
   </header>
 
-<button (click)="onTransfer()">
-  transferir
-</button>
 
-  <main>
+  <!-- <main>
     <router-outlet></router-outlet>
-  </main> 
+  </main>  -->
 
   
 
   `
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
  
 
   private readonly _shyftApiService = inject(ShyftApiService);
   private readonly _walletStore = inject(WalletStore);
   private readonly _publicKey = toSignal(this._walletStore.publicKey$);
-  private readonly _matDialog = inject(MatDialog);
+  private readonly _connectionStore = inject(ConnectionStore);
+  
 
   readonly account = computedAsync(
     () => this._shyftApiService.getAccount(this._publicKey()?.toBase58()),
@@ -94,13 +93,8 @@ export class AppComponent {
     { requireSync:true},
   );
 
-  // readonly transactions = computedAsync(() =>
-  //   this._shyftApiService.getTransanctions(this._publicKey()?.toBase58())
-  // )
-
-  onTransfer(){
-    console.log("hola mundo!")
-    this._matDialog.open(TransferModalComponent);
+  ngOnInit() {
+    this._connectionStore.setEndpoint(this._shyftApiService.getEnpoint());
   }
 
 
