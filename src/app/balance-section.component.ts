@@ -31,7 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
       </footer>
       }
 
-      
+  
     </mat-card>
   `
     ,
@@ -41,7 +41,6 @@ import { MatButtonModule } from '@angular/material/button';
 export class BalanceSectionComponent{
 
     private readonly _shyftApiService = inject(ShyftApiService);
-    // private readonly _publicKey = injectPublicKey();
     private readonly _walletStore = inject(WalletStore);
     private readonly _publicKey = toSignal(this._walletStore.publicKey$);
     private readonly _matDialog = inject(MatDialog);
@@ -51,7 +50,6 @@ export class BalanceSectionComponent{
       { requireSync:true},
     );
   
-
     onTransfer(){
       console.log("hola mundo!")
       this._matDialog.open(TransferModalComponent);
