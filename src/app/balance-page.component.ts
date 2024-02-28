@@ -5,7 +5,7 @@ import { TransactionsSectionComponent } from './transactions-section.component';
 @Component({
     selector: 'duty-work-space-balance-page',
     template: `
-        <div class="flex justify-center gap-4">
+        <div class="flex flex-col items-center justify-center gap-4">
         <duty-work-space-balance-section></duty-work-space-balance-section>
         <duty-work-space-transactions-section></duty-work-space-transactions-section>
         </div>

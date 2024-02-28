@@ -13,22 +13,29 @@ import { MatButtonModule } from '@angular/material/button';
     selector: 'duty-work-space-balance-section',
     standalone:true,
     template: `
-    <mat-card class="w-[400px] px-4 py-8">
-      <h2 class="text-center text-3xl mb-4">Balance</h2>
+    <mat-card class="w-[800px] px-4 py-4 bg-current">
+      <h2 class="text-center text-2xl mt-2">Balance Account</h2>
+      <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+
 
       @if (!account()) {
         <p class="text-center">Conecta tu wallet para ver tu balance.</p>
       } @else {
-        <div class="flex justify-center items-center gap-2">
-          <img [src]="account()?.info?.image" class="w-16 h-16" />
-          <p class="text-5xl font-bold">{{ account()?.balance }}</p>
+        <div class="flex justify-between items-center pe-4">
+          <img [src]="account()?.info?.image" class="w-[160px] h-[160px] ps-4 pb-4" />
+          <div class="flex justify-between items-center ">
+            <div class="flex flex-col items-center justify-center me-4">
+              <p class="text-5xl font-bold ">{{ account()?.balance }}</p>
+              <p class="text-xs font-light">Your account balance</p>
+            </div>
+            
+            <button mat-raised-button color="primary" (click)="onTransfer()">
+              Transferir
+            </button>
+          </div>
         </div>
 
-        <footer class="flex justify-center items-center gap-2 mb-4 mt-8">
-        <button mat-raised-button color="primary" (click)="onTransfer()">
-          Transferir
-        </button>
-      </footer>
+    
       }
 
   

@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { map, of} from 'rxjs';
+import { map, of, tap} from 'rxjs';
 
 import { config } from './config'; // aca tengo un config en el gitignore
 
@@ -80,6 +80,35 @@ export class ShyftApiService {
     
     
     }
+
+
+
+    getAllTokens(publicKey: string | undefined | null){
+
+        if(!publicKey){
+            return of(null);
+        }
+
+        const url = new URL('https://api.shyft.to/sol/v1/wallet/all_tokens');
+
+        url.searchParams.set('network', 'mainnet-beta');
+        url.searchParams.set('wallet', publicKey);
+        
+
+        return this._httpClient.get<{ 
+            result: {
+                address: string;
+                balance: number; 
+                info : { name : string, symbol: string, image: string };
+            } []
+    }>(url.toString(), {headers : this._header})
+    .pipe( 
+        tap(a => console.log(a)),
+        map((response) => response.result)); 
+    
+    
+    }
+
 
 
 }

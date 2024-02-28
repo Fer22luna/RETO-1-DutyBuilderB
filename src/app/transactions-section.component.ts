@@ -5,15 +5,19 @@ import { ShyftApiService } from "./shyft-ap.service";
 import {  WalletStore } from "@heavy-duty/wallet-adapter";
 import { toSignal} from '@angular/core/rxjs-interop'
 import { computedAsync } from "ngxtension/computed-async";
+import { CommonModule } from "@angular/common";
 
 
 @Component({
     selector:'duty-work-space-transactions-section',
-    imports: [MatTableModule,MatCard],
+    imports: [MatTableModule,MatCard, CommonModule],
     standalone: true,
     template: `
-    <mat-card class="w-[500px] px-4 py-8">
-      <h2 class="text-center text-3xl mb-4">Historial de Transacciones</h2>
+    <mat-card class="w-[800px] px-4 py-8">
+      <h2 class="text-center text-3xl my-4">Historial de Transacciones</h2>
+      <hr class="w-48 h-1 mx-auto my-4 bg-gray-100 border-0 rounded md:my-10 dark:bg-gray-700">
+
+
 
       @if (!transactions()) {
         <p class="text-center">Conecta tu wallet para ver las transacciones.</p>
@@ -33,7 +37,7 @@ import { computedAsync } from "ngxtension/computed-async";
 
           <ng-container matColumnDef="timestamp">
             <th mat-header-cell *matHeaderCellDef>Timestamp</th>
-            <td mat-cell *matCellDef="let element">{{ element.timestamp }}</td>
+            <td mat-cell *matCellDef="let element">{{ element.timestamp | date: 'dd/MM/yyyy HH:mm'  }}</td>
           </ng-container>
 
           <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
