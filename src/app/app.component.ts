@@ -25,7 +25,7 @@ import { BalancePageComponent } from './balance-page.component';
     ],
   selector: 'duty-work-space-root',
   template:`
-  <header class="px-16 pt-20 pb-8 relative">
+  <header class="px-16 pt-20 pb-8 relative ">
   <h1 class ="text-center text-5xl mb-4">My Account</h1>
 
 
@@ -39,19 +39,19 @@ import { BalancePageComponent } from './balance-page.component';
   } 
 
  
-  <div class="flex justify-center gap-4">
+  <div class="flex justify-center  pb-8" >
       <hd-wallet-multi-button> </hd-wallet-multi-button>
   </div>
  
-  @if (balance()) {
+  <!-- @if (balance()) {
     <div class="flex justify-center items-center gap-2 ">
       <p class="text-2xl font-bold">
         {{balance()?.balance }}  
       </p>
     </div>
-  } 
+  }  -->
   
-<duty-work-space-balance-page></duty-work-space-balance-page>
+<duty-work-space-balance-page class="bg-slate-500"></duty-work-space-balance-page>
   <!-- <nav>
     <ul class="flex justify-center gap-4 py-16">
       <li>
